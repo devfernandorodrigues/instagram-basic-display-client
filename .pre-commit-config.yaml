@@ -1,0 +1,23 @@
+repos:
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-typing-imports==1.10.0]
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.7.1
+    hooks:
+      - id: reorder-python-imports
+        args: [--py3-plus]
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        language_version: python3
+        args: ["--line-length", "79"]
+
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v2.2.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
