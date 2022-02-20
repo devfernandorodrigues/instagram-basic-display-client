@@ -16,6 +16,7 @@ ipython = "^8.0.1"
 pytest = "^7.0.1"
 Faker = "^13.0.0"
 responses = "^0.18.0"
+pytest-mock = "^3.7.0"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
