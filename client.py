@@ -7,6 +7,7 @@ from schemas import Authentication
 
 class InstagramBasicDisplayClient:
     API_ENDPOINT = "https://api.instagram.com"
+    GRAPH_ENDPOINT = "https://graph.instagram.com"
 
     def __init__(
         self,
@@ -48,3 +49,15 @@ class InstagramBasicDisplayClient:
         resp = requests.post(url, data=data)
 
         return Authentication(**resp.json(), expires_in=3600)
+
+    def long_lived_token(self, access_token):
+        params = {
+            "grant_type": "ig_exchange_token",
+            "client_secret": self.client_secret,
+            "access_token": access_token,
+        }
+
+        url = f"{self.GRAPH_ENDPOINT}/access_token"
+        resp = requests.get(url, params=params)
+
+        return Authentication(**resp.json())
