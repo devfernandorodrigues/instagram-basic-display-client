@@ -1,5 +1,9 @@
 import urllib
 
+import requests
+
+from schemas import Authentication
+
 
 class InstagramBasicDisplayClient:
     API_ENDPOINT = "https://api.instagram.com"
@@ -30,3 +34,17 @@ class InstagramBasicDisplayClient:
         )
 
         return url
+
+    def exchange(self, code):
+        data = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "grant_type": "authorization_code",
+            "redirect_uri": self.redirect_uri,
+            "code": code,
+        }
+
+        url = f"{self.API_ENDPOINT}/oauth/access_token"
+        resp = requests.post(url, data=data)
+
+        return Authentication(**resp.json(), expires_in=3600)
