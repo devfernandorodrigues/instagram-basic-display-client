@@ -61,3 +61,14 @@ class InstagramBasicDisplayClient:
         resp = requests.get(url, params=params)
 
         return Authentication(**resp.json())
+
+    def refresh(self, access_token):
+        params = {
+            "grant_type": "ig_refresh_token",
+            "access_token": access_token,
+        }
+
+        url = f"{self.GRAPH_ENDPOINT}/refresh_access_token"
+        resp = requests.get(url, params=params)
+
+        return Authentication(**resp.json())
