@@ -14,3 +14,8 @@ class Authentication(BaseModel):
         if expires_in:
             data["expires_at"] = datetime.now() + timedelta(seconds=expires_in)
         super().__init__(**data)
+
+
+class User(BaseModel):
+    id: str
+    username: str
