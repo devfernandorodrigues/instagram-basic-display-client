@@ -1,8 +1,10 @@
 import urllib
+from functools import cached_property
 
 import requests
 
 from schemas import Authentication
+from schemas import User
 
 
 class InstagramBasicDisplayClient:
@@ -77,3 +79,22 @@ class InstagramBasicDisplayClient:
         resp = self.request("get", url, params=params)
 
         return Authentication(**resp.json())
+
+
+class UserClient:
+    ENDPOINT = "https://graph.instagram.com"
+
+    def __init__(self, authentication):
+        self.authentication = authentication
+
+    @cached_property
+    def user(self):
+        params = {
+            "fields": "id,username",
+            "access_token": self.authentication.access_token,
+        }
+
+        url = f"{self.ENDPOINT}/me"
+        resp = requests.get(url, params=params)
+
+        return User(**resp.json())
