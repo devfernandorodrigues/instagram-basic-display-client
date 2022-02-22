@@ -21,6 +21,11 @@ class InstagramBasicDisplayClient:
         self.scope = scope
         self.client_secret = client_secret
 
+    def request(self, method, url, *args, **kwargs):
+        resp = requests.request(method, url, *args, **kwargs)
+        resp.raise_for_status()
+        return resp
+
     def authorize(self):
         params = {
             "client_id": self.client_id,
@@ -46,7 +51,7 @@ class InstagramBasicDisplayClient:
         }
 
         url = f"{self.API_ENDPOINT}/oauth/access_token"
-        resp = requests.post(url, data=data)
+        resp = self.request("post", url, data=data)
 
         return Authentication(**resp.json(), expires_in=3600)
 

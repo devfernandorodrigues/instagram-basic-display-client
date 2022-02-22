@@ -1,5 +1,7 @@
 from unittest.mock import Mock
 
+import pytest
+import requests
 import responses
 from faker import Faker
 
@@ -12,7 +14,7 @@ URL = "https://api.instagram.com/oauth/access_token"
 
 def test_call_mock(client, mocker):
     mock = mocker.patch(
-        "requests.post",
+        "client.InstagramBasicDisplayClient.request",
         return_value=Mock(
             status_code=200,
             json=lambda: {"access_token": fake.uuid4()},
@@ -29,7 +31,7 @@ def test_call_mock(client, mocker):
 
     client.exchange(code)
 
-    mock.assert_called_once_with(URL, data=data)
+    mock.assert_called_once_with("post", URL, data=data)
 
 
 @responses.activate
@@ -75,3 +77,12 @@ def test_schema(client, mocker):
     client.exchange(code)
 
     mock.assert_called_once_with(**json_data, expires_in=3600)
+
+
+@responses.activate
+def test_raises(client, mocker):
+    code = fake.uuid4()
+    responses.add(responses.POST, URL, status=400)
+
+    with pytest.raises(requests.exceptions.HTTPError):
+        client.exchange(code)
