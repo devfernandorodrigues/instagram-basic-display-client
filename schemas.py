@@ -19,3 +19,14 @@ class Authentication(BaseModel):
 class User(BaseModel):
     id: str
     username: str
+
+
+class Media(BaseModel):
+    id: str
+    caption: Optional[str] = None
+    media_type: str
+    media_url: str
+    permalink: str
+    thumbnail_url: Optional[str] = None
+    timestamp: datetime
+    username: str
