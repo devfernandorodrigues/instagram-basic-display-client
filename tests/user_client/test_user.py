@@ -3,8 +3,6 @@ from unittest.mock import Mock
 import responses
 from faker import Faker
 
-from client import UserClient
-from schemas import Authentication
 from schemas import User
 
 
@@ -13,14 +11,11 @@ fake = Faker()
 URL = "https://graph.instagram.com/me"
 
 
-def test_call_mock(mocker):
-    access_token = fake.uuid4()
-    params = {"fields": "id,username", "access_token": access_token}
-    user_client = UserClient(
-        authentication=Authentication(
-            access_token=access_token,
-        )
-    )
+def test_call_mock(user_client, mocker):
+    params = {
+        "fields": "id,username",
+        "access_token": user_client.authentication.access_token,
+    }
     mock = mocker.patch(
         "requests.get",
         return_value=Mock(
@@ -35,14 +30,8 @@ def test_call_mock(mocker):
 
 
 @responses.activate
-def test_response():
-    access_token = fake.uuid4()
+def test_response(user_client):
     json_data = {"id": fake.uuid4(), "username": fake.user_name()}
-    user_client = UserClient(
-        authentication=Authentication(
-            access_token=access_token,
-        )
-    )
     responses.add(responses.GET, URL, json=json_data)
 
     user = user_client.user
@@ -52,14 +41,8 @@ def test_response():
 
 
 @responses.activate
-def test_istance():
-    access_token = fake.uuid4()
+def test_istance(user_client):
     json_data = {"id": fake.uuid4(), "username": fake.user_name()}
-    user_client = UserClient(
-        authentication=Authentication(
-            access_token=access_token,
-        )
-    )
     responses.add(responses.GET, URL, json=json_data)
 
     user = user_client.user
@@ -68,14 +51,8 @@ def test_istance():
 
 
 @responses.activate
-def test_schema(mocker):
-    access_token = fake.uuid4()
+def test_schema(user_client, mocker):
     json_data = {"id": fake.uuid4(), "username": fake.user_name()}
-    user_client = UserClient(
-        authentication=Authentication(
-            access_token=access_token,
-        )
-    )
     responses.add(responses.GET, URL, json=json_data)
     mock = mocker.patch("client.User")
 
