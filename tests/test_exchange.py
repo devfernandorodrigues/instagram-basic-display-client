@@ -80,7 +80,7 @@ def test_schema(client, mocker):
 
 
 @responses.activate
-def test_raises(client, mocker):
+def test_raises(client):
     code = fake.uuid4()
     responses.add(responses.POST, URL, status=400)
 
