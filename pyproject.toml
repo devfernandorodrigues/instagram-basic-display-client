@@ -1,22 +1,22 @@
 [tool.poetry]
 authors = ["Fernando Rodrigues <devfernandorodrigues@gmail.com>"]
 description = ""
-name = "instagram-basic-display-client"
+name = "instabd"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
+pydantic = "^1.9.0"
 python = "^3.8"
 requests = "^2.27.1"
-pydantic = "^1.9.0"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^2.17.0"
+Faker = "^13.0.0"
 black = "^22.1.0"
 ipython = "^8.0.1"
+pre-commit = "^2.17.0"
 pytest = "^7.0.1"
-Faker = "^13.0.0"
-responses = "^0.18.0"
 pytest-mock = "^3.7.0"
+responses = "^0.18.0"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
