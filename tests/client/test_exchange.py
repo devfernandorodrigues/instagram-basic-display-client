@@ -1,3 +1,6 @@
+from datetime import datetime
+from datetime import timedelta
+
 import pytest
 import requests
 import responses
@@ -45,7 +48,12 @@ def test_response(client):
 
     authentication = client.exchange(code)
 
+    expected_date = datetime.now() + timedelta(seconds=3600)
     assert authentication.access_token == access_token
+    assert authentication.expires_at.date() == expected_date.date()
+    assert authentication.expires_at.hour == expected_date.hour
+    assert authentication.expires_at.minute == expected_date.minute
+    assert authentication.expires_at.second == expected_date.second
 
 
 @responses.activate
