@@ -4,6 +4,7 @@ from functools import cached_property
 import requests
 
 from schemas import Authentication
+from schemas import Media
 from schemas import User
 
 
@@ -86,6 +87,10 @@ class UserClient:
 
     def __init__(self, authentication):
         self.authentication = authentication
+        self._fields = (
+            "id,caption,media_type,media_url,permalink,"
+            "thumbnail_url,timestamp,username"
+        )
 
     @cached_property
     def user(self):
@@ -98,3 +103,16 @@ class UserClient:
         resp = requests.get(url, params=params)
 
         return User(**resp.json())
+
+    def medias(self):
+        params = {
+            "access_token": self.authentication.access_token,
+            "fields": self._fields,
+        }
+
+        url = f"{self.ENDPOINT}/me/media"
+
+        resp = requests.get(url, params=params)
+        data = resp.json()["data"]
+
+        return [Media(**media) for media in data]
