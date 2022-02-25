@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from typing import List
 from typing import Optional
 
 from pydantic import BaseModel
@@ -21,6 +22,16 @@ class User(BaseModel):
     username: str
 
 
+class Children(BaseModel):
+    id: str
+    media_type: str
+    media_url: str
+    permalink: str
+    thumbnail_url: Optional[str] = None
+    timestamp: str
+    username: str
+
+
 class Media(BaseModel):
     id: str
     caption: Optional[str] = None
@@ -30,3 +41,4 @@ class Media(BaseModel):
     thumbnail_url: Optional[str] = None
     timestamp: str
     username: str
+    children: Optional[List[Children]] = []
