@@ -8,7 +8,7 @@ fake = Faker()
 
 
 @responses.activate
-def test_call(user_client, media):
+def test_call(user_client, children):
     id_ = fake.pyint()
     params = {
         "fields": user_client._fields_children,
@@ -17,7 +17,7 @@ def test_call(user_client, media):
     responses.add(
         responses.GET,
         re.compile(r".+\d+/children"),
-        json={"data": [media.dict()]},
+        json={"data": [children.dict()]},
         match=[matchers.query_param_matcher(params)],
     )
 
@@ -27,14 +27,14 @@ def test_call(user_client, media):
 
 
 @responses.activate
-def test_response(user_client, media):
+def test_response(user_client, children):
     id_ = fake.pyint()
     responses.add(
         responses.GET,
         re.compile(r".+\d+/children"),
-        json={"data": [media.dict()]},
+        json={"data": [children.dict()]},
     )
 
-    medias = user_client.children(id_)
+    childrens = user_client.children(id_)
 
-    assert medias == [media]
+    assert childrens == [children]

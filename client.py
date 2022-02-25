@@ -4,6 +4,7 @@ from functools import cached_property
 import requests
 
 from schemas import Authentication
+from schemas import Children
 from schemas import Media
 from schemas import User
 
@@ -132,4 +133,4 @@ class UserClient:
         resp = requests.get(url, params=params)
         data = resp.json()["data"]
 
-        return [Media(**media) for media in data]
+        return [Children(**media) for media in data]
