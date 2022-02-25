@@ -11,6 +11,11 @@ fake = Faker()
 
 
 @pytest.fixture
+def faker():
+    return Faker()
+
+
+@pytest.fixture
 def client():
     return InstagramBasicDisplayClient(
         client_id=fake.uuid4(),

@@ -83,6 +83,13 @@ class InstagramBasicDisplayClient:
 
         return Authentication(**resp.json())
 
+    def exchange_long(self, code):
+        authentication = self.exchange(code)
+        long_authentication = self.long_lived_token(
+            authentication.access_token,
+        )
+        return long_authentication
+
 
 class UserClient:
     ENDPOINT = "https://graph.instagram.com"
