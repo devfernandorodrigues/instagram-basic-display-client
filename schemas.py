@@ -1,9 +1,16 @@
 from datetime import datetime
 from datetime import timedelta
+from enum import Enum
 from typing import List
 from typing import Optional
 
 from pydantic import BaseModel
+
+
+class MediaType(Enum):
+    image = "IMAGE"
+    video = "VIDEO"
+    carousel_album = "CAROUSEL_ALBUM"
 
 
 class Authentication(BaseModel):
