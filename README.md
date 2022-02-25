@@ -7,7 +7,7 @@ Instabd is a Python library client for Instagram Basic Display API
 To start you need:
 
 - A Facebook developers account.
-- A app with permissions to Instagram Baisc Display API.
+- A app with permissions to Instagram Basic Display API.
 
 For more instructions, please, read the [docs](https://developers.facebook.com/docs/instagram-basic-display-api/) from facebook.
 
