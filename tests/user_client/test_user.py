@@ -47,14 +47,3 @@ def test_istance(user_client):
     user = user_client.user
 
     assert isinstance(user, User)
-
-
-@responses.activate
-def test_schema(user_client, mocker):
-    json_data = {"id": fake.uuid4(), "username": fake.user_name()}
-    responses.add(responses.GET, URL, json=json_data)
-    mock = mocker.patch("client.User")
-
-    user_client.user
-
-    mock.assert_called_once_with(**json_data)

@@ -1,4 +1,4 @@
-from client import UserClient
+from user_client import UserClient
 
 
 def test_from_access_token(faker):

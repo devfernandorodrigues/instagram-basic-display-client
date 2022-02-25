@@ -2,7 +2,7 @@ import re
 
 import responses
 
-from client import UserClient
+from user_client import UserClient
 
 
 @responses.activate
