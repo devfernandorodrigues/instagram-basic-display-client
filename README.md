@@ -38,7 +38,7 @@ client.authorize()
 
 This is the url that will authenticate the instagram user account.
 
-## Receiving the code
+### Receiving the code
 
 On your `redirect_uri` you will receive an code that will be sent by the instagram.
 
@@ -58,6 +58,22 @@ If you need the **_long lived token_** you can do this:
 ```python
 code = requests.args.get("code")
 user_client = client.to_user_client_from_code(code, long=True)
+```
+
+### Refresh token
+
+You can refresh a token in two ways
+
+#### 1 - From access token
+
+```python3
+  client.refresh("access_token")
+```
+
+#### 2 - From user client
+
+```python3
+  client.refresh_for(user_client)
 ```
 
 ## User client
