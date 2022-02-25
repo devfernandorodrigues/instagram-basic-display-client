@@ -95,3 +95,7 @@ class InstabdClient:
         return UserClient(
             authentication=authentication,
         )
+
+    def refresh_for(self, user_client):
+        authentication = self.refresh(user_client.authentication.access_token)
+        user_client.authentication = authentication
