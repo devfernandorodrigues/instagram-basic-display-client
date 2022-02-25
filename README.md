@@ -25,7 +25,7 @@ pip install instabd
 from instabd import InstadbClient
 
 # create your client
-client = InstadbClient(
+client = InstabdClient(
     client_id="your_client_id",
     client_secret="your_client_secret",
     redirect_uri="your_redirect_uri",
@@ -77,7 +77,7 @@ Getting the medias now it's easy, just do:
 
 ```python
 user_client.medias()
->>>  [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
+>>> [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
 ```
 
 #### Create a user client from access token
