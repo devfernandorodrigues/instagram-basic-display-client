@@ -66,14 +66,19 @@ You can refresh a token in two ways
 
 #### 1 - From access token
 
-```python3
-  client.refresh("access_token")
+You will receive a new Authentication schema.
+
+```python
+client.refresh("access_token")
+>>> Authentication(access_token='new_access_token', expires_at=datetime.datetime(2022, 4, 26, 11, 27, 0, 221694))
 ```
 
 #### 2 - From user client
 
-```python3
+```python
   client.refresh_for(user_client)
+  user_client.authentication
+  >>> Authentication(access_token='new_access_token', expires_at=datetime.datetime(2022, 4, 26, 11, 27, 0, 188948))
 ```
 
 ## User client
