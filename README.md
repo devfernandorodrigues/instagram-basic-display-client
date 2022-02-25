@@ -76,9 +76,9 @@ client.refresh("access_token")
 #### 2 - From user client
 
 ```python
-  client.refresh_for(user_client)
-  user_client.authentication
-  >>> Authentication(access_token='new_access_token', expires_at=datetime.datetime(2022, 4, 26, 11, 27, 0, 188948))
+client.refresh_for(user_client)
+user_client.authentication
+>>> Authentication(access_token='new_access_token', expires_at=datetime.datetime(2022, 4, 26, 11, 27, 0, 188948))
 ```
 
 ## User client
