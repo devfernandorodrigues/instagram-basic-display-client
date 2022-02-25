@@ -90,6 +90,16 @@ class InstagramBasicDisplayClient:
         )
         return long_authentication
 
+    def to_user_client_from_code(self, code, long=False):
+        if long:
+            authentication = self.exchange_long(code)
+        else:
+            authentication = self.exchange(code)
+
+        return UserClient(
+            authentication=authentication,
+        )
+
 
 class UserClient:
     ENDPOINT = "https://graph.instagram.com"
