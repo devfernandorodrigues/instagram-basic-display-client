@@ -6,6 +6,7 @@ import requests
 from schemas import Authentication
 from schemas import Children
 from schemas import Media
+from schemas import MediaType
 from schemas import User
 
 
@@ -120,7 +121,14 @@ class UserClient:
         resp = requests.get(url, params=params)
         data = resp.json()["data"]
 
-        return [Media(**media) for media in data]
+        medias = []
+        for d in data:
+            media = Media(**d)
+            if media.media_type == MediaType.carousel_album.value:
+                media.children = self.children(media.id)
+            medias.append(media)
+
+        return medias
 
     def children(self, id_):
         params = {
