@@ -91,6 +91,10 @@ class UserClient:
             "id,caption,media_type,media_url,permalink,"
             "thumbnail_url,timestamp,username"
         )
+        self._fields_children = (
+            "id,media_type,media_url,permalink,"
+            "thumbnail_url,timestamp,username"
+        )
 
     @cached_property
     def user(self):
@@ -111,6 +115,19 @@ class UserClient:
         }
 
         url = f"{self.ENDPOINT}/me/media"
+
+        resp = requests.get(url, params=params)
+        data = resp.json()["data"]
+
+        return [Media(**media) for media in data]
+
+    def children(self, id_):
+        params = {
+            "fields": self._fields_children,
+            "access_token": self.authentication.access_token,
+        }
+
+        url = f"{self.ENDPOINT}/{id_}/children"
 
         resp = requests.get(url, params=params)
         data = resp.json()["data"]
