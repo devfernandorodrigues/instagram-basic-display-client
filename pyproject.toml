@@ -2,7 +2,7 @@
 authors = ["Fernando Rodrigues <devfernandorodrigues@gmail.com>"]
 description = ""
 name = "instabd"
-version = "0.1.0"
+version = "0.2.0"
 
 [tool.poetry.dependencies]
 pydantic = "^1.9.0"
