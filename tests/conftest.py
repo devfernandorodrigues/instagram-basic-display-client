@@ -1,7 +1,7 @@
 import pytest
 from faker import Faker
 
-from instabd.client import InstagramBasicDisplayClient
+from instabd.client import InstabdClient
 from instabd.schemas import Authentication
 from instabd.schemas import Children
 from instabd.schemas import Media
@@ -17,7 +17,7 @@ def faker():
 
 @pytest.fixture
 def client():
-    return InstagramBasicDisplayClient(
+    return InstabdClient(
         client_id=fake.uuid4(),
         client_secret=fake.uuid4(),
         redirect_uri=fake.url(),

@@ -2,7 +2,7 @@ import urllib
 
 from faker import Faker
 
-from instabd.client import InstagramBasicDisplayClient
+from instabd.client import InstabdClient
 
 fake = Faker()
 
@@ -14,7 +14,7 @@ def test_url():
     client_secret = fake.uuid4()
     redirect_uri = fake.url()
     scope = "user_profile,user_media"
-    client = InstagramBasicDisplayClient(
+    client = InstabdClient(
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
@@ -37,7 +37,7 @@ def test_scope():
     client_secret = fake.uuid4()
     redirect_uri = fake.url()
     scope = "user_profile"
-    client = InstagramBasicDisplayClient(
+    client = InstabdClient(
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,

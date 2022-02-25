@@ -6,7 +6,7 @@ from .schemas import Authentication
 from .user_client import UserClient
 
 
-class InstagramBasicDisplayClient:
+class InstabdClient:
     API_ENDPOINT = "https://api.instagram.com"
     GRAPH_ENDPOINT = "https://graph.instagram.com"
 
