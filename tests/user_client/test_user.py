@@ -1,7 +1,6 @@
-from unittest.mock import Mock
-
 import responses
 from faker import Faker
+from responses import matchers
 
 from schemas import User
 
@@ -11,22 +10,22 @@ fake = Faker()
 URL = "https://graph.instagram.com/me"
 
 
-def test_call_mock(user_client, mocker):
+@responses.activate
+def test_call_mock(user_client):
     params = {
         "fields": "id,username",
         "access_token": user_client.authentication.access_token,
     }
-    mock = mocker.patch(
-        "requests.get",
-        return_value=Mock(
-            status_code=200,
-            json=lambda: {"id": fake.uuid4(), "username": fake.user_name()},
-        ),
+    responses.add(
+        responses.GET,
+        URL,
+        json={"id": fake.uuid4(), "username": fake.user_name()},
+        match=[matchers.query_param_matcher(params)],
     )
 
     user_client.user
 
-    mock.assert_called_once_with(URL, params=params)
+    assert responses.calls[0].response.status_code == 200
 
 
 @responses.activate

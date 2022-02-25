@@ -1,9 +1,8 @@
-from unittest.mock import Mock
-
 import pytest
 import requests
 import responses
 from faker import Faker
+from responses import matchers
 
 from schemas import Authentication
 
@@ -12,14 +11,8 @@ fake = Faker()
 URL = "https://api.instagram.com/oauth/access_token"
 
 
-def test_call_mock(client, mocker):
-    mock = mocker.patch(
-        "client.InstagramBasicDisplayClient.request",
-        return_value=Mock(
-            status_code=200,
-            json=lambda: {"access_token": fake.uuid4()},
-        ),
-    )
+@responses.activate
+def test_call(client):
     code = fake.uuid4()
     data = {
         "client_id": client.client_id,
@@ -28,10 +21,16 @@ def test_call_mock(client, mocker):
         "redirect_uri": client.redirect_uri,
         "code": code,
     }
+    responses.add(
+        responses.POST,
+        URL,
+        json={"access_token": fake.uuid4()},
+        match=[matchers.urlencoded_params_matcher(data)],
+    )
 
     client.exchange(code)
 
-    mock.assert_called_once_with("post", URL, data=data)
+    assert responses.calls[0].response.status_code == 200
 
 
 @responses.activate
