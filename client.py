@@ -159,3 +159,11 @@ class UserClient:
         data = resp.json()["data"]
 
         return [Children(**media) for media in data]
+
+    @staticmethod
+    def from_access_token(access_token):
+        return UserClient(
+            authentication=Authentication(
+                access_token=access_token,
+            )
+        )
