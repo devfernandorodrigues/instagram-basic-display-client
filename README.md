@@ -22,7 +22,7 @@ pip install instabd
 ## Usage
 
 ```python
-from instadb import InstadbClient
+from instabd import InstadbClient
 
 # create your client
 client = InstadbClient(
@@ -85,6 +85,6 @@ user_client.medias()
 If you need you can create a user client from your access token from db
 
 ```python
->>> from instadb import UserClient
+>>> from instabd import UserClient
 >>> user_client = UserClient.from_access_token("access_token_from_db")
 ```
