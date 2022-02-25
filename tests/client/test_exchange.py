@@ -4,7 +4,7 @@ import responses
 from faker import Faker
 from responses import matchers
 
-from schemas import Authentication
+from instabd.schemas import Authentication
 
 fake = Faker()
 
@@ -60,22 +60,6 @@ def test_instance(client):
     authentication = client.exchange(code)
 
     assert isinstance(authentication, Authentication)
-
-
-@responses.activate
-def test_schema(client, mocker):
-    code = fake.uuid4()
-    json_data = {"access_token": fake.uuid4()}
-    responses.add(
-        responses.POST,
-        URL,
-        json=json_data,
-    )
-    mock = mocker.patch("client.Authentication")
-
-    client.exchange(code)
-
-    mock.assert_called_once_with(**json_data, expires_in=3600)
 
 
 @responses.activate

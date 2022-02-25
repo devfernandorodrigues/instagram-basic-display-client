@@ -2,7 +2,7 @@ import re
 
 import responses
 
-from user_client import UserClient
+from instabd.user_client import UserClient
 
 
 @responses.activate

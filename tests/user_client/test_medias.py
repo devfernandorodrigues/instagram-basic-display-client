@@ -2,7 +2,7 @@ import re
 
 import responses
 
-from schemas import MediaType
+from instabd.schemas import MediaType
 
 URL = "https://graph.instagram.com/me/media"
 

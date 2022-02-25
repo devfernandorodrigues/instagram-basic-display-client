@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from faker import Faker
 
-from schemas import Authentication
+from instabd.schemas import Authentication
 
 fake = Faker()
 

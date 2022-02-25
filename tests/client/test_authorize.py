@@ -2,7 +2,7 @@ import urllib
 
 from faker import Faker
 
-from client import InstagramBasicDisplayClient
+from instabd.client import InstagramBasicDisplayClient
 
 fake = Faker()
 

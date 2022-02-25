@@ -2,8 +2,8 @@ import urllib
 
 import requests
 
-from schemas import Authentication
-from user_client import UserClient
+from .schemas import Authentication
+from .user_client import UserClient
 
 
 class InstagramBasicDisplayClient:

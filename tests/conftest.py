@@ -1,11 +1,11 @@
 import pytest
 from faker import Faker
 
-from client import InstagramBasicDisplayClient
-from schemas import Authentication
-from schemas import Children
-from schemas import Media
-from user_client import UserClient
+from instabd.client import InstagramBasicDisplayClient
+from instabd.schemas import Authentication
+from instabd.schemas import Children
+from instabd.schemas import Media
+from instabd.user_client import UserClient
 
 fake = Faker()
 

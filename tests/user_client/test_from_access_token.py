@@ -1,4 +1,4 @@
-from user_client import UserClient
+from instabd.user_client import UserClient
 
 
 def test_from_access_token(faker):

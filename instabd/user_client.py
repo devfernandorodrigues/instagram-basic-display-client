@@ -2,11 +2,11 @@ from functools import cached_property
 
 import requests
 
-from schemas import Authentication
-from schemas import Children
-from schemas import Media
-from schemas import MediaType
-from schemas import User
+from .schemas import Authentication
+from .schemas import Children
+from .schemas import Media
+from .schemas import MediaType
+from .schemas import User
 
 
 class UserClient:

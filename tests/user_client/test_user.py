@@ -2,7 +2,7 @@ import responses
 from faker import Faker
 from responses import matchers
 
-from schemas import User
+from instabd.schemas import User
 
 
 fake = Faker()
