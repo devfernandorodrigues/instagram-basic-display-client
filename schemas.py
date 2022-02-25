@@ -28,5 +28,5 @@ class Media(BaseModel):
     media_url: str
     permalink: str
     thumbnail_url: Optional[str] = None
-    timestamp: datetime
+    timestamp: str
     username: str
