@@ -22,7 +22,7 @@ pip install instabd
 ## Usage
 
 ```python
-from instabd import InstadbClient
+from instabd import InstabdClient
 
 # create your client
 client = InstabdClient(
