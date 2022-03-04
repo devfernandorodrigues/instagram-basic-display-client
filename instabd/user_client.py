@@ -36,7 +36,7 @@ class UserClient:
 
         return User(**resp.json())
 
-    def medias(self, limit=10):
+    def medias(self, limit=10, grab_all=False):
         params = {
             "access_token": self.authentication.access_token,
             "fields": self._fields,
@@ -47,9 +47,14 @@ class UserClient:
         (data, paging) = self._media_request(url, params)
         medias = self._extract_medias(data)
 
-        while paging.next and len(medias) < limit:
-            (data, paging) = self._media_request(paging.next, params)
-            medias.extend(self._extract_medias(data))
+        if grab_all:
+            while paging.next:
+                (data, paging) = self._media_request(paging.next, params)
+                medias.extend(self._extract_medias(data))
+        else:
+            while paging.next and len(medias) < limit:
+                (data, paging) = self._media_request(paging.next, params)
+                medias.extend(self._extract_medias(data))
 
         return medias
 
