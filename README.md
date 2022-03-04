@@ -101,6 +101,53 @@ user_client.medias()
 >>> [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
 ```
 
+#### Limiting medias
+
+You can limit the medias, just pass the `limit` param.
+
+The default is: 10
+
+```python
+user_client.medias(limit=100)
+>>> [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
+```
+
+##### :warning: Atention
+
+> The limit sometimes can be smaller than you put.
+> It's because the user can have no medias on your Instagram account or have less medias.
+
+#### Grabbing all medias
+
+You can grab all medias from your user client
+
+```python
+user_client.medias(grab_all=True)
+>>> [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
+```
+
+#### Getting by time
+
+And the last example is when you need get the medias between some time.
+In this case you can use the `since`and `until` params.
+
+For example
+
+```python
+from datetime import datetime, timedelta
+
+now = datetime.now()
+seven_hours_ago = now - timedelta(hours=7)
+
+since = int(seven_hours_ago.timestamp())
+until = int(now.timestamp())
+
+user_client.medias(since=since, until=until)
+>>> [Media(id='id', caption=None, media_type='IMAGE', media_url='media_url', permalink='permalink', thumbnail_url=None, timestamp='2022-02-03T13:26:29+0000', username='username', children=[])]
+```
+
+:information_source: Here we have this conversion because facebook's tell us to pass a unix timestamp without the dots.
+
 #### Create a user client from access token
 
 If you need you can create a user client from your access token from db
@@ -119,5 +166,5 @@ If you need you can create a user client from your access token from db
 - [x] Add account type on user
 - [x] Add media count on user
 - [ ] Add limitations section
-- [ ] Update readme to show medias cases
+- [x] Update readme to show medias cases
 - [x] Get all media from user
