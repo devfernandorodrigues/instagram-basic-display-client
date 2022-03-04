@@ -36,11 +36,13 @@ class UserClient:
 
         return User(**resp.json())
 
-    def medias(self, limit=10, grab_all=False):
+    def medias(self, limit=10, grab_all=False, since=None, until=None):
         params = {
             "access_token": self.authentication.access_token,
             "fields": self._fields,
             "limit": limit,
+            "since": since,
+            "until": until,
         }
 
         url = f"{self.ENDPOINT}/me/media"
@@ -64,7 +66,8 @@ class UserClient:
         resp = requests.get(url, params=params)
         resp_json = resp.json()
         data = resp_json["data"]
-        paging = Paging(**resp_json["paging"])
+        paging_dict = resp_json.get("paging", {})
+        paging = Paging(**paging_dict)
 
         return (data, paging)
 

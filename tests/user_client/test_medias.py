@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 import responses
 
@@ -174,3 +175,44 @@ def test_limit_length(user_client, media):
     medias = user_client.medias(limit=25)
 
     assert len(medias) == 25
+
+
+@responses.activate
+def test_since_param(user_client, media):
+    data = {"data": [media.dict()], "paging": {}}
+    params = {
+        "access_token": user_client.authentication.access_token,
+        "fields": user_client._fields,
+        "limit": "10",
+        "since": str(datetime.now().timestamp()),
+    }
+    responses.add(responses.GET, URL, json=data, status=200)
+
+    user_client.medias(since=params["since"])
+
+    assert responses.calls[0].request.params == params
+
+
+@responses.activate
+def test_until_param(user_client, media):
+    data = {"data": [media.dict()], "paging": {}}
+    params = {
+        "access_token": user_client.authentication.access_token,
+        "fields": user_client._fields,
+        "limit": "10",
+        "until": str(datetime.now().timestamp()),
+    }
+    responses.add(responses.GET, URL, json=data, status=200)
+
+    user_client.medias(until=params["until"])
+
+    assert responses.calls[0].request.params == params
+
+
+@responses.activate
+def test_wihtout_paging(user_client):
+    responses.add(responses.GET, URL, json={"data": []}, status=200)
+
+    user_client.medias()
+
+    assert responses.calls[0].response.status_code == 200
