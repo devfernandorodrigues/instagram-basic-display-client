@@ -112,10 +112,11 @@ If you need you can create a user client from your access token from db
 
 ## Todo
 
-- [ ] Get medias with pagination
+- [x] Get medias with pagination
 - [ ] Get user medias with since and util params
 - [ ] Implement error codes
 - [ ] Create hook to handle error codes
 - [x] Add account type on user
 - [x] Add media count on user
 - [ ] Add limitations section
+- [ ] Update readme to show medias cases
