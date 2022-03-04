@@ -109,3 +109,13 @@ If you need you can create a user client from your access token from db
 >>> from instabd import UserClient
 >>> user_client = UserClient.from_access_token("access_token_from_db")
 ```
+
+## Todo
+
+- [ ] Get medias with pagination
+- [ ] Get user medias with since and util params
+- [ ] Implement error codes
+- [ ] Create hook to handle error codes
+- [ ] Add account type on user
+- [ ] Add media count on user
+- [ ] Add limitations section
