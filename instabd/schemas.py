@@ -51,3 +51,8 @@ class Media(BaseModel):
     timestamp: str
     username: str
     children: Optional[List[Children]] = []
+
+
+class Paging(BaseModel):
+    previous: Optional[str] = None
+    next: Optional[str] = None

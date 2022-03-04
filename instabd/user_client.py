@@ -6,6 +6,7 @@ from .schemas import Authentication
 from .schemas import Children
 from .schemas import Media
 from .schemas import MediaType
+from .schemas import Paging
 from .schemas import User
 
 
@@ -35,24 +36,38 @@ class UserClient:
 
         return User(**resp.json())
 
-    def medias(self):
+    def medias(self, limit=10):
         params = {
             "access_token": self.authentication.access_token,
             "fields": self._fields,
+            "limit": limit,
         }
 
         url = f"{self.ENDPOINT}/me/media"
+        (data, paging) = self._media_request(url, params)
+        medias = self._extract_medias(data)
 
+        while paging.next and len(medias) < limit:
+            (data, paging) = self._media_request(paging.next, params)
+            medias.extend(self._extract_medias(data))
+
+        return medias
+
+    def _media_request(self, url, params):
         resp = requests.get(url, params=params)
-        data = resp.json()["data"]
+        resp_json = resp.json()
+        data = resp_json["data"]
+        paging = Paging(**resp_json["paging"])
 
+        return (data, paging)
+
+    def _extract_medias(self, data):
         medias = []
         for d in data:
             media = Media(**d)
             if media.media_type == MediaType.carousel_album.value:
                 media.children = self.children(media.id)
             medias.append(media)
-
         return medias
 
     def children(self, id_):

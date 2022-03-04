@@ -9,7 +9,7 @@ URL = "https://graph.instagram.com/me/media"
 
 @responses.activate
 def test_response(user_client, media):
-    data = {"data": [media.dict()]}
+    data = {"data": [media.dict()], "paging": {}}
     responses.add(responses.GET, URL, json=data)
 
     medias = user_client.medias()
@@ -19,10 +19,11 @@ def test_response(user_client, media):
 
 @responses.activate
 def test_params(user_client, media):
-    data = {"data": [media.dict()]}
+    data = {"data": [media.dict()], "paging": {}}
     params = {
         "access_token": user_client.authentication.access_token,
         "fields": user_client._fields,
+        "limit": "10",
     }
     responses.add(responses.GET, URL, json=data, status=200)
 
@@ -37,7 +38,7 @@ def test_children(user_client, media, children):
     responses.add(
         responses.GET,
         URL,
-        json={"data": [media.dict()]},
+        json={"data": [media.dict()], "paging": {}},
         status=200,
     )
     responses.add(
@@ -58,7 +59,7 @@ def test_image_media_type(user_client, media):
     responses.add(
         responses.GET,
         URL,
-        json={"data": [media.dict()]},
+        json={"data": [media.dict()], "paging": {}},
         status=200,
     )
 
@@ -73,10 +74,64 @@ def test_video_media_type(user_client, media):
     responses.add(
         responses.GET,
         URL,
-        json={"data": [media.dict()]},
+        json={"data": [media.dict()], "paging": {}},
         status=200,
     )
 
     user_client.medias()
 
+    assert len(responses.calls) == 1
+
+
+@responses.activate
+def test_next(user_client, media):
+    responses.add(
+        responses.GET,
+        URL,
+        json={
+            "data": [media.dict() for i in range(0, 10)],
+            "paging": {
+                "next": f"{URL}/next",
+            },
+        },
+    )
+    responses.add(
+        responses.GET,
+        f"{URL}/next",
+        json={
+            "data": [media.dict() for i in range(0, 10)],
+            "paging": {
+                "next": URL,
+            },
+        },
+    )
+
+    medias = user_client.medias(
+        limit=20,
+    )
+
+    assert len(medias) == 20
+    assert len(responses.calls) == 2
+    assert "/next" not in responses.calls[0].request.url
+    assert "/next" in responses.calls[1].request.url
+
+
+@responses.activate
+def test_limit(user_client, media):
+    responses.add(
+        responses.GET,
+        URL,
+        json={
+            "data": [media.dict() for i in range(0, 10)],
+            "paging": {
+                "next": f"{URL}/next",
+            },
+        },
+    )
+
+    medias = user_client.medias(
+        limit=10,
+    )
+
+    assert len(medias) == 10
     assert len(responses.calls) == 1
