@@ -27,6 +27,8 @@ class Authentication(BaseModel):
 class User(BaseModel):
     id: str
     username: str
+    media_count: int
+    account_type: str
 
 
 class Children(BaseModel):

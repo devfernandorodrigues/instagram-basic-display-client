@@ -26,7 +26,7 @@ class UserClient:
     @cached_property
     def user(self):
         params = {
-            "fields": "id,username",
+            "fields": "id,account_type,username,media_count",
             "access_token": self.authentication.access_token,
         }
 

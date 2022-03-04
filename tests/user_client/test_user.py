@@ -11,15 +11,20 @@ URL = "https://graph.instagram.com/me"
 
 
 @responses.activate
-def test_call_mock(user_client):
+def test_call(user_client):
     params = {
-        "fields": "id,username",
+        "fields": "id,account_type,username,media_count",
         "access_token": user_client.authentication.access_token,
     }
     responses.add(
         responses.GET,
         URL,
-        json={"id": fake.uuid4(), "username": fake.user_name()},
+        json={
+            "id": fake.uuid4(),
+            "username": fake.user_name(),
+            "media_count": fake.pyint(),
+            "account_type": "BUSINESS",
+        },
         match=[matchers.query_param_matcher(params)],
     )
 
@@ -30,18 +35,30 @@ def test_call_mock(user_client):
 
 @responses.activate
 def test_response(user_client):
-    json_data = {"id": fake.uuid4(), "username": fake.user_name()}
+    json_data = {
+        "id": fake.uuid4(),
+        "username": fake.user_name(),
+        "media_count": fake.pyint(),
+        "account_type": "BUSINESS",
+    }
     responses.add(responses.GET, URL, json=json_data)
 
     user = user_client.user
 
     assert user.id == json_data["id"]
     assert user.username == json_data["username"]
+    assert user.media_count == json_data["media_count"]
+    assert user.account_type == json_data["account_type"]
 
 
 @responses.activate
 def test_istance(user_client):
-    json_data = {"id": fake.uuid4(), "username": fake.user_name()}
+    json_data = {
+        "id": fake.uuid4(),
+        "username": fake.user_name(),
+        "media_count": fake.pyint(),
+        "account_type": "BUSINESS",
+    }
     responses.add(responses.GET, URL, json=json_data)
 
     user = user_client.user
