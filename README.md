@@ -116,6 +116,6 @@ If you need you can create a user client from your access token from db
 - [ ] Get user medias with since and util params
 - [ ] Implement error codes
 - [ ] Create hook to handle error codes
-- [ ] Add account type on user
-- [ ] Add media count on user
+- [x] Add account type on user
+- [x] Add media count on user
 - [ ] Add limitations section
