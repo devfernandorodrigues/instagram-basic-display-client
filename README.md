@@ -120,3 +120,4 @@ If you need you can create a user client from your access token from db
 - [x] Add media count on user
 - [ ] Add limitations section
 - [ ] Update readme to show medias cases
+- [ ] Get all media from user
