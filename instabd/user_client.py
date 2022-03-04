@@ -1,7 +1,6 @@
 from functools import cached_property
 
-import requests
-
+from .request import request
 from .schemas import Authentication
 from .schemas import Children
 from .schemas import Media
@@ -32,7 +31,7 @@ class UserClient:
         }
 
         url = f"{self.ENDPOINT}/me"
-        resp = requests.get(url, params=params)
+        resp = request("get", url, params=params)
 
         return User(**resp.json())
 
@@ -63,7 +62,7 @@ class UserClient:
         return medias
 
     def _media_request(self, url, params):
-        resp = requests.get(url, params=params)
+        resp = request("get", url, params=params)
         resp_json = resp.json()
         data = resp_json["data"]
         paging_dict = resp_json.get("paging", {})
@@ -88,7 +87,7 @@ class UserClient:
 
         url = f"{self.ENDPOINT}/{id_}/children"
 
-        resp = requests.get(url, params=params)
+        resp = request("get", url, params=params)
         data = resp.json()["data"]
 
         return [Children(**media) for media in data]

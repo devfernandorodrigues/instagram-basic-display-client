@@ -1,7 +1,9 @@
+import pytest
 import responses
 from faker import Faker
 from responses import matchers
 
+from instabd.exceptions import IGApiException
 from instabd.schemas import User
 
 
@@ -64,3 +66,11 @@ def test_istance(user_client):
     user = user_client.user
 
     assert isinstance(user, User)
+
+
+@responses.activate
+def test_raises(user_client, error):
+    responses.add(responses.GET, URL, status=400, json=error)
+
+    with pytest.raises(IGApiException):
+        user_client.user

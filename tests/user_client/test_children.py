@@ -1,8 +1,11 @@
 import re
 
+import pytest
 import responses
 from faker import Faker
 from responses import matchers
+
+from instabd.exceptions import IGApiException
 
 fake = Faker()
 
@@ -38,3 +41,14 @@ def test_response(user_client, children):
     childrens = user_client.children(id_)
 
     assert childrens == [children]
+
+
+@responses.activate
+def test_raises(user_client, error):
+    id_ = fake.pyint()
+    responses.add(
+        responses.GET, re.compile(r".+\d+/children"), status=400, json=error
+    )
+
+    with pytest.raises(IGApiException):
+        user_client.children(id_)

@@ -1,8 +1,10 @@
 import re
 from datetime import datetime
 
+import pytest
 import responses
 
+from instabd.exceptions import IGApiException
 from instabd.schemas import MediaType
 
 URL = "https://graph.instagram.com/me/media"
@@ -216,3 +218,11 @@ def test_wihtout_paging(user_client):
     user_client.medias()
 
     assert responses.calls[0].response.status_code == 200
+
+
+@responses.activate
+def test_raises(user_client, error, faker):
+    responses.add(responses.GET, URL, status=400, json=error)
+
+    with pytest.raises(IGApiException):
+        user_client.medias()
