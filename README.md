@@ -113,7 +113,7 @@ If you need you can create a user client from your access token from db
 ## Todo
 
 - [x] Get medias with pagination
-- [ ] Get user medias with since and util params
+- [x] Get user medias with since and util params
 - [ ] Implement error codes
 - [ ] Create hook to handle error codes
 - [x] Add account type on user
