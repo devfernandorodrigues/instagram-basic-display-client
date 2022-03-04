@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.1] - 2022-04-03
+
+- Fix limit length on medias
+
 ## [0.5.0] - 2022-04-03
 
 - Add `grab_all` for get all medias from user
