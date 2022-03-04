@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.0] - 2022-04-03
+
+- Add limit for get medias from user
+
+### Added
+
 ## [0.3.0] - 2022-04-03
 
 ### Added
