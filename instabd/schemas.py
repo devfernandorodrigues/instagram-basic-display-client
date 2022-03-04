@@ -56,3 +56,11 @@ class Media(BaseModel):
 class Paging(BaseModel):
     previous: Optional[str] = None
     next: Optional[str] = None
+
+
+class Error(BaseModel):
+    message: Optional[str] = None
+    type: Optional[str] = None
+    code: Optional[int] = None
+    error_subcode: Optional[int] = None
+    fbtrace_id: Optional[str] = None

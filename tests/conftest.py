@@ -2,6 +2,7 @@ import pytest
 from faker import Faker
 
 from instabd.client import InstabdClient
+from instabd.request import request
 from instabd.schemas import Authentication
 from instabd.schemas import Children
 from instabd.schemas import Media
@@ -13,6 +14,11 @@ fake = Faker()
 @pytest.fixture
 def faker():
     return Faker()
+
+
+@pytest.fixture
+def req():
+    return request
 
 
 @pytest.fixture
