@@ -1,9 +1,9 @@
 import pytest
-import requests
 import responses
 from faker import Faker
 from responses import matchers
 
+from instabd.exceptions import IGApiException
 from instabd.schemas import Authentication
 
 fake = Faker()
@@ -59,12 +59,8 @@ def test_instance(client):
 
 
 @responses.activate
-def test_raises(client):
-    responses.add(
-        responses.GET,
-        URL,
-        status=400,
-    )
+def test_raises(client, error):
+    responses.add(responses.GET, URL, status=400, json=error)
 
-    with pytest.raises(requests.exceptions.HTTPError):
+    with pytest.raises(IGApiException):
         client.refresh(fake.uuid4())

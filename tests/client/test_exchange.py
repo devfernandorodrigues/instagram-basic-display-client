@@ -2,11 +2,11 @@ from datetime import datetime
 from datetime import timedelta
 
 import pytest
-import requests
 import responses
 from faker import Faker
 from responses import matchers
 
+from instabd.exceptions import IGApiException
 from instabd.schemas import Authentication
 
 fake = Faker()
@@ -71,9 +71,9 @@ def test_instance(client):
 
 
 @responses.activate
-def test_raises(client):
+def test_raises(client, error):
     code = fake.uuid4()
-    responses.add(responses.POST, URL, status=400)
+    responses.add(responses.POST, URL, status=400, json=error)
 
-    with pytest.raises(requests.exceptions.HTTPError):
+    with pytest.raises(IGApiException):
         client.exchange(code)

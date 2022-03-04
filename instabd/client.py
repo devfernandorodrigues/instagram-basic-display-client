@@ -1,7 +1,6 @@
 import urllib
 
-import requests
-
+from .request import request
 from .schemas import Authentication
 from .user_client import UserClient
 
@@ -21,11 +20,6 @@ class InstabdClient:
         self.redirect_uri = redirect_uri
         self.scope = scope
         self.client_secret = client_secret
-
-    def request(self, method, url, *args, **kwargs):
-        resp = requests.request(method, url, *args, **kwargs)
-        resp.raise_for_status()
-        return resp
 
     def authorize(self):
         params = {
@@ -52,7 +46,7 @@ class InstabdClient:
         }
 
         url = f"{self.API_ENDPOINT}/oauth/access_token"
-        resp = self.request("post", url, data=data)
+        resp = request("post", url, data=data)
 
         return Authentication(**resp.json(), expires_in=3600)
 
@@ -64,7 +58,7 @@ class InstabdClient:
         }
 
         url = f"{self.GRAPH_ENDPOINT}/access_token"
-        resp = self.request("get", url, params=params)
+        resp = request("get", url, params=params)
 
         return Authentication(**resp.json())
 
@@ -75,7 +69,7 @@ class InstabdClient:
         }
 
         url = f"{self.GRAPH_ENDPOINT}/refresh_access_token"
-        resp = self.request("get", url, params=params)
+        resp = request("get", url, params=params)
 
         return Authentication(**resp.json())
 

@@ -65,3 +65,16 @@ def children():
         timestamp=fake.date_time().isoformat(),
         username=fake.user_name(),
     )
+
+
+@pytest.fixture
+def error():
+    return {
+        "error": {
+            "message": "...",
+            "type": "IGApiException",
+            "code": 100,
+            "error_subcode": 33,
+            "fbtrace_id": "At9_KmV0NHMck-Lmr_FuEki",
+        }
+    }
