@@ -155,3 +155,22 @@ def test_grab_all(user_client, media):
 
     assert len(responses.calls) == 5
     assert len(medias) == 50
+
+
+@responses.activate
+def test_limit_length(user_client, media):
+    for i in range(0, 5):
+        responses.add(
+            responses.GET,
+            re.compile(rf"{URL}.+"),
+            json={
+                "data": [media.dict() for i in range(0, 10)],
+                "paging": {
+                    "next": f"{URL}/next" if i != 4 else None,
+                },
+            },
+        )
+
+    medias = user_client.medias(limit=25)
+
+    assert len(medias) == 25

@@ -55,6 +55,8 @@ class UserClient:
             while paging.next and len(medias) < limit:
                 (data, paging) = self._media_request(paging.next, params)
                 medias.extend(self._extract_medias(data))
+            if len(medias) > limit:
+                medias = medias[:limit]
 
         return medias
 
