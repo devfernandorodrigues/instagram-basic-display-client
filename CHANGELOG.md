@@ -1,8 +1,14 @@
 # Changelog
 
+## [0.7.0] - 2022-04-03
+
+- Add exceptions
+- Add custom request with hook to handle exceptions
+- Refactor client and user client to use custom request
+
 ## [0.6.0] - 2022-04-03
 
-- add `since`and `until` params for medias
+- Add `since`and `until` params for medias
 
 ## [0.5.1] - 2022-04-03
 
