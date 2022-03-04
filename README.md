@@ -87,7 +87,7 @@ Now with this user client you can get his data.
 
 ```python
 user_client.user
->>> User(id="user_id", username="username")
+>>> User(id="user_id", username="username", account_type="account_type", media_count=10)
 ```
 
 ### Getting medias
