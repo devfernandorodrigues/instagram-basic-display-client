@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.0] - 2022-04-03
+
+- add `since`and `until` params for medias
+
 ## [0.5.1] - 2022-04-03
 
 - Fix limit length on medias
