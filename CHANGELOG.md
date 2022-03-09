@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.8.0] - 2022-09-03
+
+- Add state on authorize
+
 ## [0.7.0] - 2022-04-03
 
 - Add exceptions
