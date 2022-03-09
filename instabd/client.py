@@ -21,13 +21,16 @@ class InstabdClient:
         self.scope = scope
         self.client_secret = client_secret
 
-    def authorize(self):
+    def authorize(self, state=""):
         params = {
             "client_id": self.client_id,
             "redirect_uri": self.redirect_uri,
             "scope": self.scope,
             "response_type": "code",
         }
+
+        if state:
+            params.update({"state": state})
 
         url = (
             f"{self.API_ENDPOINT}/oauth/authorize?"
